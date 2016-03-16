@@ -1,31 +1,3 @@
-
-Skip to content
-This repository
-
-    Pull requests
-    Issues
-    Gist
-
-    @auras76
-
-5
-9
-
-    6
-
-DespairFactor/angler
-Code
-Issues 0
-Pull requests 0
-Wiki
-Pulse
-Graphs
-angler/include/linux/sched/rt.h
-135216b 19 days ago
-@fdario fdario sched/deadline: Add SCHED_DEADLINE inheritance logic
-@clrkwllms
-@fdario
-70 lines (59 sloc) 1.79 KB
 #ifndef _SCHED_RT_H
 #define _SCHED_RT_H
 
@@ -63,7 +35,6 @@ static inline int rt_task(struct task_struct *p)
 #ifdef CONFIG_RT_MUTEXES
 extern int rt_mutex_getprio(struct task_struct *p);
 extern void rt_mutex_setprio(struct task_struct *p, int prio);
-extern struct task_struct *rt_mutex_get_top_task(struct task_struct *task);
 extern void rt_mutex_adjust_pi(struct task_struct *p);
 static inline bool tsk_is_pi_blocked(struct task_struct *tsk)
 {
@@ -73,10 +44,6 @@ static inline bool tsk_is_pi_blocked(struct task_struct *tsk)
 static inline int rt_mutex_getprio(struct task_struct *p)
 {
 	return p->normal_prio;
-}
-static inline struct task_struct *rt_mutex_get_top_task(struct task_struct *task)
-{
-	return NULL;
 }
 # define rt_mutex_adjust_pi(p)		do { } while (0)
 static inline bool tsk_is_pi_blocked(struct task_struct *tsk)
@@ -95,9 +62,3 @@ extern void normalize_rt_tasks(void);
 #define RR_TIMESLICE		(100 * HZ / 1000)
 
 #endif /* _SCHED_RT_H */
-
-    Status API Training Shop Blog About Pricing 
-
-    © 2016 GitHub, Inc. Terms Privacy Security Contact Help 
-
-
